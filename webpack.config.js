@@ -1,7 +1,9 @@
 const path = require('path')
+const glob = require('glob')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin') // 压缩js
 const HtmlPlugin = require('html-webpack-plugin') // 打包html
 const ExtractTextPlugin = require('extract-text-webpack-plugin') //分离css
+const PurifyCssPlugin = require('purifycss-webpack')
 
 const website = {
   publicPath: "http://192.168.1.105:8080/"
@@ -97,7 +99,10 @@ module.exports = {
       hash: true,
       template: './src/index.html'
     }),
-    new ExtractTextPlugin('css/index.css')
+    new ExtractTextPlugin('css/index.css'),
+    new PurifyCssPlugin({
+      paths: glob.sync(path.join(__dirname, 'src/*.html'))
+    })
   ],
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),

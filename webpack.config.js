@@ -10,6 +10,7 @@ const website = {
 }
 
 module.exports = {
+  devtool: 'cheap-module-source-map',
   entry: {
     entry: './src/entry.js'
   },
@@ -100,7 +101,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new UglifyJsPlugin(),
+    // new UglifyJsPlugin(),
     new HtmlPlugin({
       minify: {
         removeAttributeQuotes: true

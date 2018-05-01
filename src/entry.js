@@ -9,7 +9,7 @@ console.log("hello")
 function async() {
   return new Promise((resolve, reject) => {
     if(isTrue) {
-      resolve("jack")
+      resolve("jack2")
     }else {
       reject("rose")
     }

@@ -15,6 +15,8 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
+    "less": "^3.0.2",
+    "less-loader": "^4.1.0",
     "live-server": "^1.2.0",
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",

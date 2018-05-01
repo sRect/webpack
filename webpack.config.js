@@ -5,9 +5,17 @@ const HtmlPlugin = require('html-webpack-plugin') // 打包html
 const ExtractTextPlugin = require('extract-text-webpack-plugin') //分离css
 const PurifyCssPlugin = require('purifycss-webpack')
 
-const website = {
-  publicPath: "http://192.168.1.105:8080/"
+let website = "";
+if (process.env.type === "build") {
+  website = {
+    publicPath: "http://cdn.srect.com/"
+  }
+} else {
+  website = {
+    publicPath: "http://192.168.1.105:8080/"
+  }
 }
+console.log( encodeURIComponent(process.env.type) )
 
 module.exports = {
   devtool: 'cheap-module-source-map',

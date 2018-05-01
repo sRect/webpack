@@ -9,3 +9,10 @@ html,body {
   height: 200px;
   background: url("../images/git-guide.jpg") center center no-repeat;
 }
+.circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, .5);
+  transform: scale(50%, 50%);
+}

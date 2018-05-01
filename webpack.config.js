@@ -30,9 +30,19 @@ module.exports = {
         //     loader: 'css-loader'
         //   }
         // ]
-        use: ExtractTextPlugin.extract({ // 分离css(页面主要是css,js很少)
+        use: ExtractTextPlugin.extract({ // 分离css(页面主要是css,而js很少)
           fallback: "style-loader",
-          use: "css-loader"
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1
+              }
+            },
+            {
+              loader: 'postcss-loader'
+            }
+          ]
         })
       },
       {

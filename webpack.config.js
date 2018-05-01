@@ -87,7 +87,16 @@ module.exports = {
       {
         test: /\.(htm|html)$/i,
         use:[ 'html-withimg-loader'] 
-    }
+      },
+      {
+        test: /\.js$/,
+        use: [
+          {
+            loader: 'babel-loader'
+          }
+        ],
+        exclude: /node_modules/
+      }
     ]
   },
   plugins: [

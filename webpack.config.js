@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin'); // 分离css插件
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
+const HappyPack = require('happypack'); // node中打包的时候是单线程去一件一件事情的做，HappyPack可以开启多个子进程去并发执行，子进程处理完后把结果交给主进程
 
 module.exports = {
   entry: {
@@ -16,12 +17,26 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.less', '.css', '.json'],
   },
+  // webpack4中废弃了webpack.optimize.CommonsChunkPlugin插件,用新的配置项替代,把多次import的文件打包成一个单独的common.js
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       commons: {
+  //         chunks: 'initial',
+  //         minChunks: 2,
+  //         maxInitialRequests: 5,
+  //         minSize: 2,
+  //         name: 'common'
+  //       }
+  //     }
+  //   }
+  // },
   module: {
     rules: [
       {
         test: /\.js?$/,
         exclude: /node_modules/,
-        use: ['babel-loader']
+        use: 'happypack/loader?id=babel'
       },
       {
         test: /\.css$/,
@@ -46,7 +61,7 @@ module.exports = {
           loader: 'url-loader',
           options: {
             query: {
-              limit: '8192',
+              limit: 3000,
               name: 'images/[name]_[hash:7].[ext]',
             }
           }
@@ -78,7 +93,7 @@ module.exports = {
     // 需要在plugins里加入插件name: chunk名字 contenthash:8: 根据内容生成hash值取前8位
     new ExtractTextPlugin('css/[name].css'),
     // 打包前自动删除dist目录，保证dist目录下是当前打包后的文件
-    new CleanWebpackPlugin([path.join(__dirname, './dist/**/*.*')], {
+    new CleanWebpackPlugin([path.join(__dirname, './dist')], {
       root: path.join(__dirname, './')
     }),
     new WebpackParallelUglifyPlugin({
@@ -95,6 +110,11 @@ module.exports = {
           reduce_vars: true
         }
       }
+    }),
+    new HappyPack({
+      id: 'babel',
+      threads: 4,
+      loaders: ['babel-loader']
     })
   ]
 }

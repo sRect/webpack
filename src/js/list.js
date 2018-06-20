@@ -1,4 +1,5 @@
 require("../css/list")
-const moment = require("moment")
+import moment from 'moment'
 
 console.log(moment().format('YYYY-MM-DD HH:mm:ss'))
+document.getElementById("time").innerHTML = moment().format('YYYY-MM-DD HH:mm:ss');

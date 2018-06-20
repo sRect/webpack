@@ -1,4 +1,5 @@
-require("../css/index")
+// require("../css/index")
+import "../css/index"
 
 const async = (flag) => {
   return new Promise((resolve, reject) => {

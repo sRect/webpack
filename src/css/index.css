@@ -3,3 +3,9 @@
   height: 200px;
   background: url("../images/logo.png") center center no-repeat;
 }
+
+.img {
+  width: 200px;
+  height: 500px;
+  background: url("../images/test.jpg") center center no-repeat;
+}

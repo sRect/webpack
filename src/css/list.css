@@ -7,7 +7,7 @@
     height: 100%;
     background-color: #333333;
   }
-    p {
+    p,.time {
       color: #fff;
       font-size: 20px;
     }

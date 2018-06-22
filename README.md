@@ -7,7 +7,7 @@
 
 ## 项目配置文件
 1. webpack.base.js
-```
+```javascript
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin'); // 分离css插件
@@ -114,7 +114,7 @@ module.exports = {
 }
 ```
 2. webpack.dev.js
-```
+```javascript
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
@@ -143,7 +143,7 @@ const dev = {
 module.exports = merge(base, dev);
 ```
 3. webpack.prod.js
-```
+```javascript
 const path = require('path');
 const merge = require('webpack-merge');
 const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
@@ -173,7 +173,7 @@ const prod = {
 module.exports = merge(base, prod);
 ```
 4. webpack.config.js
-```
+```javascript
 const devModule = require("./webpack-config/webpack.dev")
 const prodModule = require("./webpack-config/webpack.prod")
 
@@ -195,7 +195,7 @@ module.exports = finalModule;
 ```
 
 5. package.json
-```
+```json
 "scripts": {
   "server": "cross-env NODE_ENV=dev webpack-dev-server --open",
   "dev": "cross-env NODE_ENV=dev webpack",

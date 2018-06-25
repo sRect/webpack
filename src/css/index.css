@@ -8,4 +8,6 @@
   width: 200px;
   height: 500px;
   background: url("../images/test.jpg") center center no-repeat;
+  border-radius: 5px;
+  transform: translate(30px, 30px)
 }

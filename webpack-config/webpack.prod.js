@@ -1,9 +1,25 @@
 const path = require('path');
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const base = require('./webpack.base');
 
 const prod = {
+  devtool: 'inline-source-map',
+  // webpack4中废弃了webpack.optimize.CommonsChunkPlugin插件,用新的配置项替代,把多次import的文件打包成一个单独的common.js
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          chunks: 'initial',
+          minChunks: 2,
+          maxInitialRequests: 5,
+          minSize: 2,
+          name: 'common'
+        }
+      }
+    }
+  },
   plugins: [
     new WebpackParallelUglifyPlugin({
       uglifyJS: {
@@ -21,7 +37,6 @@ const prod = {
       }
     })
   ]
-
 }
 
 module.exports = merge(base, prod);

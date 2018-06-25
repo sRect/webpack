@@ -16,20 +16,6 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.less', '.css', '.json'],
   },
-  // webpack4中废弃了webpack.optimize.CommonsChunkPlugin插件,用新的配置项替代,把多次import的文件打包成一个单独的common.js
-  // optimization: {
-  //   splitChunks: {
-  //     cacheGroups: {
-  //       commons: {
-  //         chunks: 'initial',
-  //         minChunks: 2,
-  //         maxInitialRequests: 5,
-  //         minSize: 2,
-  //         name: 'common'
-  //       }
-  //     }
-  //   }
-  // },
   module: {
     rules: [
       {
@@ -43,11 +29,22 @@ module.exports = {
         // use: ['style-loader', 'css-loader']
         use: ExtractTextPlugin.extract({ // 分离css(页面主要是css,js很少)
           fallback: "style-loader",
-          use: "css-loader"
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1
+              }
+            },
+            {
+              loader: 'postcss-loader'
+            }
+          ],
+          publicPath: '../'
         })
       },
       {
-        test: /\.less$ /,
+        test: /\.less$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'less-loader']
@@ -59,12 +56,15 @@ module.exports = {
         use: [{
           loader: 'url-loader',
           options: {
-            query: {
-              limit: 3000,
-              name: 'images/[name]_[hash:7].[ext]',
-            }
+            limit: 8192,
+            outputPath: 'images/',
+            name: '[name]_[hash:7].[ext]'
           }
         }]
+      },
+      {
+        test: /\.(htm|html)$/i,
+        use: ['html-withimg-loader']
       }
     ]
   },
@@ -90,10 +90,10 @@ module.exports = {
       }
     }),
     // 需要在plugins里加入插件name: chunk名字 contenthash:8: 根据内容生成hash值取前8位
-    new ExtractTextPlugin('css/[name].css'),
+    new ExtractTextPlugin('css/[name].[hash:20].css'),
     // 打包前自动删除dist目录，保证dist目录下是当前打包后的文件
-    new CleanWebpackPlugin([path.join(__dirname, '../dist/*.*')], {
-      root: path.join(__dirname, './dist')
+    new CleanWebpackPlugin([path.join(__dirname, '../dist')], {
+      root: path.join(__dirname, '../')
     }),
     new HappyPack({
       id: 'babel',

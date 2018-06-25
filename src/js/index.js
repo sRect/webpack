@@ -16,3 +16,5 @@ async(true).then(data => {
 }).catch(error => {
   console.log(error)
 })
+
+alert(1)

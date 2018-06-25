@@ -15,7 +15,6 @@ const dev = {
     inline: true, // 实时构建
     progress: true //  显示打包进度
   },
-  devtool: 'inline-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin() // 显示模块的相对路径

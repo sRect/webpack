@@ -76,6 +76,7 @@ module.exports = {
       chunks: ['index'],                       // 需要引入的chunk
       hash: true,                              // 在引入JS里面加入hash值 比如: <script src='index.js?2f373be992fc073e2ef5'></script>
       minify: {
+        collapseWhitespace: true, // 折叠空白区域 也就是压缩代码
         removeAttributeQuotes: true            // 去掉引号，减少文件大小
       }
     }),
@@ -86,6 +87,7 @@ module.exports = {
       chunks: ['list'],
       hash: true,
       minify: {
+        collapseWhitespace: true, // 折叠空白区域 也就是压缩代码
         removeAttributeQuotes: true
       }
     }),

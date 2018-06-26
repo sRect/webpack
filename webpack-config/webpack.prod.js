@@ -5,17 +5,18 @@ const WebpackParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const base = require('./webpack.base');
 
 const prod = {
-  devtool: 'inline-source-map',
   // webpack4中废弃了webpack.optimize.CommonsChunkPlugin插件,用新的配置项替代,把多次import的文件打包成一个单独的common.js
   optimization: {
     splitChunks: {
       cacheGroups: {
-        commons: {
+        vendor: {
+          test: /node_modules/, // 指定是node_modules下的第三方包
           chunks: 'initial',
           minChunks: 2,
           maxInitialRequests: 5,
           minSize: 2,
-          name: 'common'
+          name: 'vendor', // 打包后的文件名，任意命名
+          priority: 10 // 设置优先级，防止和自定义的公共代码提取时被覆盖，不进行打包
         }
       }
     }

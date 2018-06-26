@@ -4,6 +4,7 @@ const merge = require('webpack-merge');
 const base = require('./webpack.base');
 
 const dev = {
+  devtool: 'inline-source-map',
   devServer: {
     contentBase: path.join(__dirname, './dist'), // 静态文件地址
     port: 8080,

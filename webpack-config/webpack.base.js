@@ -7,7 +7,8 @@ const HappyPack = require('happypack'); // node中打包的时候是单线程去
 module.exports = {
   entry: {
     index: './src/js/index.js',
-    list: './src/js/list.js'
+    list: './src/js/list.js',
+    pmMonitor: './src/js/pmMonitor.js'
   },
   output: {
     path: path.join(__dirname, '../dist'),
@@ -73,7 +74,7 @@ module.exports = {
       template: './src/html/index.html',     // html模板的路径地址
       filename: 'html/index.html',                  // 生成的文件名
       title: 'index',                          // 传入的参数
-      chunks: ['index'],                       // 需要引入的chunk
+      chunks: ['index', 'pmMonitor'],                       // 需要引入的chunk
       hash: true,                              // 在引入JS里面加入hash值 比如: <script src='index.js?2f373be992fc073e2ef5'></script>
       minify: {
         collapseWhitespace: true, // 折叠空白区域 也就是压缩代码
